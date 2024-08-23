@@ -7,13 +7,13 @@ const WalletDisplay: React.FC<WalletDisplayProps> = ({
   error,
 }) => {
   return (
-    <div className="flex justify-between items-center mb-4 border p-4 rounded-md">
-      <span className="font-mono text-sm break-all">
-        {nobleAddress || "nobleXXXX"}
-      </span>
-      <span className="font-mono text-lg ml-2">
-        {error ? error : `${usdcBalance} USDC`}
-      </span>
+    <div className="border p-4 rounded-md mb-6">
+      <p className="font-mono text-sm break-all">
+        Address: {nobleAddress || "Address not connected"}
+      </p>
+      <p className="font-mono text-sm">
+        Balance: {error ? error : `${usdcBalance} USDC`}
+      </p>
     </div>
   );
 };

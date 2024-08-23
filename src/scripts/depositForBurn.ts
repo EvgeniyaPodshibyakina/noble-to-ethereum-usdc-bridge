@@ -70,7 +70,7 @@ export const burnUSDCOnNoble = async (nobleAddress: string, amount: number, ethR
             amount: [
                 {
                     denom: "uusdc",
-                    amount: "200000",  // Сумма комиссии за транзакцию
+                    amount: "200",  // Сумма комиссии за транзакцию
                 },
             ],
             gas: "300000",  // Увеличиваем лимит газа до 300000

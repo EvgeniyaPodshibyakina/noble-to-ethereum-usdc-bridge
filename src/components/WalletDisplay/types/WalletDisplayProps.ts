@@ -1,5 +1,5 @@
 export interface WalletDisplayProps {
-  nobleAddress: string;
+  nobleAddress: string | null;
   usdcBalance: string;
   error: string | null;
 }

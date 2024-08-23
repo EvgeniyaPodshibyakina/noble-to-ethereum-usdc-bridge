@@ -4,4 +4,5 @@ export interface TransactionFormProps {
   setMintAmount: (value: string) => void;
   setEthRecipientAddress: (value: string) => void;
   onSubmit: () => void;
+  error?: string;
 }
