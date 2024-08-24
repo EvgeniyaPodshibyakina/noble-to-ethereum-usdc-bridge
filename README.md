@@ -1,23 +1,123 @@
-# noble-to-ethereum-bridge
- A simple app that is a bridge that allows users to transfer USDC from Noble to Ethereum.
+# **Noble to Ethereum USDC Bridge**
 
- 
-Learning and Exploration Phase
+This project is a React application designed to bridge USDC between the Noble blockchain and the Ethereum network. The application connects to both the Noble and Ethereum networks via Keplr and MetaMask wallets, respectively, and facilitates the burning of USDC on Noble and minting on Ethereum. **Please note that this application operates on test networks (testnets).**
 
-In the first three days of development, after completing my regular work, I dedicated time to reading and learning about Web3 technologies. This involved exploring various aspects of blockchain development, with a specific focus on connecting wallets and understanding how they interact with decentralized applications. During this time, I successfully integrated the MetaMask wallet for Ethereum and the Keplr wallet for Noble into the project. These wallets are crucial for enabling users to securely manage and sign transactions on their respective networks and also it was the part of the assignment.
+## **Table of Contents**
 
-Researching Bridge Solutions
+- [Installation](#installation)
+- [Scripts](#scripts)
+- [Configuration](#configuration)
+- [Environment Variables](#environment-variables)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Dependencies](#dependencies)
+- [Development](#development)
+- [Build](#build)
 
-One of the primary challenges during the initial development phase was finding a suitable method to bridge USDC from Noble to a Sepolia address without using a smart contract. I spent considerable time researching different approaches and technologies that could facilitate this cross-chain transfer.
+## **Installation**
 
-Discovery of CCTP
+To install the project dependencies, run the following command:
 
-On Wednesday, I discovered the Cross-Chain Transfer Protocol (CCTP). This was a significant breakthrough in the project as CCTP provided exactly the functionality I needed to bridge USDC between the two networks. I was sure I was reaching the end of the development but was so nervous that I am mistaken so I asked for the mid-level assignment which included information about CCTP. While it was slightly disappointing to realize that the solution was included in the assignment, it also validated the approach I was taking.
+```bash
+npm install
 
-Project Completion
+This will install all the necessary packages specified in the package.json file.
 
-Armed with the knowledge of CCTP, I was able to quickly implement the bridge functionality. This allowed me to complete the project by the end of Thursday thanks to the discovery of CCTP on Wednesday giving me time tofor the other tasks withihn this 7 day frame. This protocol became the cornerstone of the solution, enabling the seamless transfer of USDC from Noble to Sepolia without the need for a custom smart contract.
 
-Conclusion
+Scripts
 
-The initial days of learning and exploration were crucial in building a solid foundation for the project. Although the process involved some challenges and a lot of frustration, the eventual discovery of CCTP allowed me to successfully implement the bridge solution and complete the project. The experience reinforced the importance of continuous learning and staying updated with emerging technologies in the fast-paced world of Web3 development.
+In the package.json file, the following scripts are defined:
+
+	•	dev: Starts the development server using Vite.
+	•	build: Compiles TypeScript and builds the project using Vite.
+	•	lint: Runs ESLint to check for code quality issues.
+	•	preview: Serves the built project using Vite’s preview feature.
+
+
+    Example Commands
+
+	•	Start development server:
+
+    npm run dev
+
+    •	Build the project:
+
+    npm run build
+
+    Configuration
+
+Vite Configuration
+
+The project uses Vite as the build tool. The Vite configuration can be found in the vite.config.ts file. It includes plugins for React and environment variable management.
+
+TypeScript Configuration
+
+The TypeScript configuration is located in the tsconfig.json file. This file references additional configurations for different parts of the project, such as tsconfig.app.json and tsconfig.node.json.
+
+Tailwind CSS
+
+Tailwind CSS is used for styling, and its configuration can be found in the tailwind.config.js file. PostCSS is also used for processing CSS, and its configuration is in the postcss.config.js file.
+
+Environment Variables
+
+The project uses environment variables for various configurations, such as API keys and network settings. Environment variables are defined in a .env file at the root of the project. The following variables are required:
+
+	•	VITE_CIRCLE_API_KEY: The API key for interacting with Circle’s CCTP.
+	•	VITE_MNEMONIC: The mnemonic phrase for generating the Noble wallet.
+
+Make sure to create a .env file in the root of your project with the appropriate values.
+
+Example .env file:
+
+VITE_CIRCLE_API_KEY=your-circle-api-key
+VITE_MNEMONIC=your-mnemonic-phrase
+
+Usage
+
+Connecting Wallets
+
+	•	Keplr Wallet: Used for connecting to the Noble blockchain.
+	•	MetaMask Wallet: Used for connecting to the Ethereum network.
+
+Bridging USDC
+
+	1.	Connect to both wallets (Keplr and MetaMask).
+	2.	Enter the amount of USDC to burn on Noble.
+	3.	Provide the recipient Ethereum address.
+	4.	Submit the transaction and monitor the status via the modal window.
+
+Project Structure
+
+The project is organized as follows:
+
+	•	src/components/: Contains React components with business logic (e.g., KeplrWallet, MetaMaskWallet).
+	•	src/UI/: Contains UI-focused React components (e.g., TransactionForm, TransactionModal).
+	•	src/hooks/: Contains custom hooks (e.g., useBridgeUSDC, useNobleBalance).
+	•	src/scripts/: Contains utility scripts for handling blockchain interactions (e.g., burnUSDCOnNoble, receiveMessageFromCCTP).
+	•	src/configs/: Contains configuration files (e.g., noble-config.ts).
+
+Dependencies
+
+Key dependencies include:
+
+	•	React: The core framework for building the user interface.
+	•	Vite: The build tool used for development and production builds.
+	•	TypeScript: For static typing in the project.
+	•	ethers: A library for interacting with the Ethereum blockchain.
+	•	@cosmjs: A suite of libraries for interacting with the Cosmos SDK blockchains, including Noble.
+
+Development dependencies include ESLint, Tailwind CSS, and TypeScript tools.
+
+Development
+
+To start the development server, use:
+
+npm run dev
+
+This will launch the application at http://localhost:5173, where you can interact with the bridge interface.
+
+To create a production build, run:
+
+npm run build
+
+This will compile the TypeScript files and bundle the application for deployment.
