@@ -6,9 +6,8 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
   isOpen,
   onClose,
   transactionLink,
-  error, // Добавляем поддержку отображения ошибки
+  error,
 }) => {
-  
   return (
     <Modal
       isOpen={isOpen}

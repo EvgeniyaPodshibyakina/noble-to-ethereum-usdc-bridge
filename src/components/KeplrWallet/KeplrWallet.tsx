@@ -57,7 +57,7 @@ const KeplrWallet: React.FC<KeplrWalletProps> = ({ setNobleAddress, setMnemonicA
           Disconnect Keplr
         </button>
       ) : (
-        <button onClick={connectKeplr} className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-green-600">
+        <button onClick={connectKeplr} className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
           Connect Keplr
         </button>
       )}

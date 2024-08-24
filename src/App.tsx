@@ -15,10 +15,11 @@ const App: React.FC = () => {
   const [mnemonicAddress, setMnemonicAddress] = useState<string | null>(null);
   const [signer, setSigner] = useState<SigningStargateClient | null>(null);
 
-  // Проверка, если nobleAddress не null, тогда используем useNobleBalance
+  // Получаем баланс USDC и возможную ошибку
   const { usdcBalance, error: balanceError } = useNobleBalance(nobleAddress || "");
 
-  const { bridgeUSDC, isOpen, setIsOpen, transactionLink, insufficientFunds, setInsufficientFunds, error } = useBridgeUSDC();
+  // Используем хук для работы с мостом USDC и состоянием модального окна
+  const { bridgeUSDC, isOpen, setIsOpen, transactionLink, error } = useBridgeUSDC();
 
   const handleBridgeUSDC = async () => {
     console.log('Final mint amount before bridge:', mintAmount);
@@ -33,6 +34,7 @@ const App: React.FC = () => {
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white shadow-md rounded-md">
         <h1 className="text-xl font-bold text-center mb-6">Bridge USDC from Noble to Ethereum</h1>
+        
         <div className="mb-4">
           <KeplrWallet 
             setNobleAddress={setNobleAddress} 
@@ -40,14 +42,17 @@ const App: React.FC = () => {
             setSigner={setSigner} 
           />
         </div>
+        
         <div className="mb-4">
-          <MetaMaskWallet setWalletAddress={setEthRecipientAddress} />
+          <MetaMaskWallet />
         </div>
+        
         <WalletDisplay
           nobleAddress={nobleAddress}
           usdcBalance={usdcBalance}
           error={balanceError}
         />
+        
         <TransactionForm
           mintAmount={mintAmount}
           ethRecipientAddress={ethRecipientAddress}
@@ -63,21 +68,6 @@ const App: React.FC = () => {
         transactionLink={transactionLink}
         error={error}
       />
-
-      {insufficientFunds && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg">
-            <h2 className="text-xl font-bold mb-4">Failed to burn USDC on Noble</h2>
-            <p>Please check your funds on the Mnemonic Address and try again.</p>
-            <button
-              onClick={() => setInsufficientFunds(false)}
-              className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

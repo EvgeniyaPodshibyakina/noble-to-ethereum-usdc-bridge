@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; 
 import { ethers, formatEther, formatUnits } from "ethers";
 
-interface WalletConnectProps {
-  setWalletAddress: (address: string) => void;
-}
 
-const MetaMaskWallet: React.FC<WalletConnectProps> = ({ setWalletAddress }) => {
+const MetaMaskWallet: React.FC = () => {
   const [walletAddress, setInternalWalletAddress] = useState<string>("");
   const [ethBalance, setEthBalance] = useState<string>("XX");
   const [usdcBalance, setUsdcBalance] = useState<string>("XX");

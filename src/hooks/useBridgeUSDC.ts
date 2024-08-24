@@ -5,7 +5,7 @@ export const useBridgeUSDC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [transactionLink, setTransactionLink] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
-  const [insufficientFunds, setInsufficientFunds] = useState<boolean>(false);
+
   const bridgeUSDC = async (
     nobleAddress: string, 
     mintAmount: string, 
@@ -13,29 +13,39 @@ export const useBridgeUSDC = () => {
   ) => {
     console.log('Mint amount input:', mintAmount); 
     const mintAmountNumber = parseInt(mintAmount, 10);
-  
+
     if (isNaN(mintAmountNumber) || mintAmountNumber <= 0) {
       console.error(`Invalid mint amount: ${mintAmount}`);
       setError('Invalid amount specified for minting.');
+      setIsOpen(true); // Открываем модальное окно при ошибке
       return;
     }
-  
-    // Предполагаем, что mintAmount уже в минимальных единицах (uusdc)
+
     const mintAmountInUUSDC = mintAmountNumber;
-  
+
     try {
-      const txHash = await burnUSDCOnNoble(
+      const { txHash, error } = await burnUSDCOnNoble(
         nobleAddress, 
-        mintAmountInUUSDC,  // Передаем значение в uusdc
+        mintAmountInUUSDC,
         ethRecipientAddress
       );
+
+      if (error) {
+        setTransactionLink(txHash ? `https://mintscan.io/noble-testnet/tx/${txHash}` : '');
+        throw new Error(error);
+      }
+
       setTransactionLink(`https://mintscan.io/noble-testnet/tx/${txHash}`);
-      setIsOpen(true);
+      setError(null); // Успешная транзакция сбрасывает ошибку
+      console.log('Transaction completed successfully:', txHash);
     } catch (error: any) {
       console.error('Error during USDC bridging:', error);
-      setError(error.message || 'Failed to execute burnUSDCOnNoble.');
+      setError(error.message || 'An error occurred during the transaction.');
+      console.log('Error set to state:', error.message || 'An error occurred during the transaction.');
+    } finally {
+      setIsOpen(true); // Открываем модальное окно в любом случае
     }
   };
 
-  return { bridgeUSDC, isOpen, setIsOpen, transactionLink, error, insufficientFunds, setInsufficientFunds };
+  return { bridgeUSDC, isOpen, setIsOpen, transactionLink, error };
 };
