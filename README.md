@@ -19,7 +19,7 @@ This project is a React application designed to bridge USDC between the Noble bl
 To install the project dependencies, run the following command:
 
 ```bash
-npm install
+npm install```
 
 This will install all the necessary packages specified in the package.json file.
 
