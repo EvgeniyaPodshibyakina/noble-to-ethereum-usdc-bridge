@@ -9,28 +9,14 @@ import WalletDisplay from './ui/WalletDisplay/WalletDisplay';
 import TransactionForm from './ui/TransactionForm/TransactionForm';
 
 const App: React.FC = () => {
-  // State for the amount of USDC to mint
   const [mintAmount, setMintAmount] = useState<string>('');
-  
-  // State for the Ethereum recipient address
   const [ethRecipientAddress, setEthRecipientAddress] = useState<string>('');
-  
-  // State for the Noble wallet address
   const [nobleAddress, setNobleAddress] = useState<string | null>(null);
-  
-  // State for the mnemonic wallet address
-  const [mnemonicAddress, setMnemonicAddress] = useState<string | null>(null);
-  
-  // State for the Stargate signer
-  const [signer, setSigner] = useState<SigningStargateClient | null>(null);
-
-  // Get the USDC balance and any error using the nobleAddress
+  const [, setMnemonicAddress] = useState<string | null>(null);
+  const [, setSigner] = useState<SigningStargateClient | null>(null);
   const { usdcBalance, error: balanceError } = useNobleBalance(nobleAddress || "");
-
-  // Use the custom hook to handle USDC bridging and modal state
   const { bridgeUSDC, isOpen, setIsOpen, transactionLink, error } = useBridgeUSDC();
 
-  // Handler function to initiate the bridging process
   const handleBridgeUSDC = async () => {
     console.log('Final mint amount before bridge:', mintAmount);
     if (nobleAddress) {
@@ -59,14 +45,12 @@ const App: React.FC = () => {
           <MetaMaskWallet />
         </div>
         
-        {/* Display the Noble wallet address and USDC balance */}
         <WalletDisplay
           nobleAddress={nobleAddress}
           usdcBalance={usdcBalance}
           error={balanceError}
         />
         
-        {/* Form to input the amount to mint and the Ethereum recipient address */}
         <TransactionForm
           mintAmount={mintAmount}
           ethRecipientAddress={ethRecipientAddress}
@@ -76,7 +60,6 @@ const App: React.FC = () => {
         />
       </div>
 
-      {/* Modal to display the transaction status */}
       <TransactionModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
