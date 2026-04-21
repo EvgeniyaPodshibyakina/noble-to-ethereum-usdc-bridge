@@ -1,3 +1,5 @@
+Test assignment completed in 2024 as part of a job application
+
 # **Noble to Ethereum USDC Bridge**
 
 This project is a React application designed to bridge USDC between the Noble blockchain and the Ethereum network. The application connects to both the Noble and Ethereum networks via Keplr and MetaMask wallets, respectively, and facilitates the burning of USDC on Noble and minting on Ethereum. **Please note that this application operates on test networks (testnets).**
